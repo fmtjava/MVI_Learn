@@ -15,7 +15,8 @@
     </style>
 
     <style name="SplashScreenStyle" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_spaceship</item>
+        <item name="windowSplashScreenBackground">@android:color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_spaceship</item>
         <item name="postSplashScreenTheme">@style/Theme.MVI_Learn</item>
     </style>
 </resources>
