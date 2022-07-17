@@ -23,7 +23,7 @@
    - Intent：此Intent不是Activity的Intent，用户的任何操作都被包装成Intent后发送给Model层进行数据请求。
   
 # 下载体验
- - 点击[![](https://img.shields.io/badge/Download-apk-green.svg)](https://www.pgyer.com/pbIB)
+ - 点击[![](https://img.shields.io/badge/Download-apk-green.svg)](https://www.pgyer.com/8SDl)
  - 下方二维码下载(每日上限100次，如达到上限，还是 clone 源码吧！✧(≖ ◡ ≖✿))）<br/>
    <img src="https://www.pgyer.com/app/qrcode/8SDl"/>  
    
