@@ -4,6 +4,8 @@ import com.fmt.mvi.learn.travel.model.TravelItem
 
 sealed class TravelTabViewState {
 
+    object LoadingState : TravelTabViewState()
+
     data class RefreshSuccess(val travelList: List<TravelItem>) : TravelTabViewState()
 
     data class LoadMoreSuccess(val travelList: List<TravelItem>) : TravelTabViewState()

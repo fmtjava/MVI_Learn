@@ -7,12 +7,17 @@ import com.fmt.mvi.learn.travel.action.TravelTabViewAction
 import com.fmt.mvi.learn.travel.model.Params
 import com.fmt.mvi.learn.travel.state.TravelTabViewState
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
 class TravelTabViewModel : ViewModel() {
 
-    private val _state = MutableSharedFlow<TravelTabViewState>()
+    /**
+     *  MutableStateFlow  侧重状态 (State),状态可以是的 UI 组件的可见性，它始终具有一个值（显示/隐藏）
+     *  MutableSharedFlow 侧重事件(Event),事件只有在满足一个或多个前提条件时才会触发，不需要也不应该有默认值
+     */
+    private val _state = MutableStateFlow<TravelTabViewState>(TravelTabViewState.LoadingState)
     val state: SharedFlow<TravelTabViewState>
         get() = _state
 

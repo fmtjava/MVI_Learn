@@ -66,7 +66,7 @@ data class Images(
 data class Urls(
     val version: String,
     val appUrl: String,
-    val h5Url: String,
+    val h5Url: String?,
     val wxUrl: String
 )
 

@@ -38,7 +38,7 @@ class VideoFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, OnLo
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         mBinding = FragmentVideoBinding.inflate(inflater, container, false)
         return mBinding.root

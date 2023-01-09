@@ -51,7 +51,7 @@ class TravelTabFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         mBinding = FragmentCommonListBinding.inflate(inflater, container, false)
         return mBinding.root
@@ -89,12 +89,16 @@ class TravelTabFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, 
         lifecycleScope.launchWhenResumed {
             mViewModel.state.flowWithLifecycle(lifecycle).distinctUntilChanged()
                 .collect { viewState ->
-                    mBinding.swipeRefreshLayout.isRefreshing = false
                     when (viewState) {
+                        is TravelTabViewState.LoadingState -> {
+                            mBinding.swipeRefreshLayout.isRefreshing = true
+                        }
                         is TravelTabViewState.RefreshSuccess -> {
+                            mBinding.swipeRefreshLayout.isRefreshing = false
                             mAdapter.setList(viewState.travelList)
                         }
                         is TravelTabViewState.LoadMoreSuccess -> {
+                            mBinding.swipeRefreshLayout.isRefreshing = false
                             mAdapter.addData(viewState.travelList)
                             if (viewState.travelList.isEmpty()) {
                                 mAdapter.loadMoreModule.loadMoreEnd()
@@ -103,6 +107,7 @@ class TravelTabFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, 
                             }
                         }
                         is TravelTabViewState.LoadError -> {
+                            mBinding.swipeRefreshLayout.isRefreshing = false
                             Toast.makeText(requireContext(), viewState.errorMsg, Toast.LENGTH_LONG)
                                 .show()
                             mAdapter.loadMoreModule.loadMoreFail()
@@ -113,7 +118,6 @@ class TravelTabFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, 
     }
 
     override fun loadPageData() {
-        mBinding.swipeRefreshLayout.isRefreshing = true
         mRequestParams.pagePara.pageIndex = mCurrentPage
         mViewModel.dispatch(TravelTabViewAction.Refresh(mRequestUrl, mRequestParams))
     }
@@ -132,7 +136,11 @@ class TravelTabFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, 
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val title = mAdapter.data[position].article.articleTitle
-        val url = mAdapter.data[position].article.urls[0].h5Url
-        TravelDetailActivity.start(requireContext(), title, url)
+        val h5Url = mAdapter.data[position].article.urls.find {
+            it.h5Url != null
+        }?.h5Url
+        h5Url?.let {
+            TravelDetailActivity.start(requireContext(), title, h5Url)
+        }
     }
 }
