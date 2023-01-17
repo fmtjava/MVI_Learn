@@ -23,14 +23,16 @@ import com.fmt.mvi.learn.travel.activity.TravelDetailActivity
 import com.fmt.mvi.learn.travel.model.Params
 import com.fmt.mvi.learn.travel.state.TravelTabViewState
 import com.fmt.mvi.learn.travel.viewmodel.TravelTabViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 
+@AndroidEntryPoint
 class TravelTabFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener,
     OnItemClickListener {
 
     private lateinit var mBinding: FragmentCommonListBinding
     private lateinit var mRequestParams: Params
-    private val mViewModel by viewModels<TravelTabViewModel>()
+    private val mViewModel: TravelTabViewModel by viewModels()
     private val mAdapter by lazy { TravelTabAdapter() }
     private var mRequestUrl = ""
     private var mGroupChannelCode = ""

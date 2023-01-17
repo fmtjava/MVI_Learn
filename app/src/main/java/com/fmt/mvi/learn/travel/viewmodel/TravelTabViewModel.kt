@@ -2,16 +2,19 @@ package com.fmt.mvi.learn.travel.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fmt.mvi.learn.net.ApiService
+import com.fmt.mvi.learn.net.Api
 import com.fmt.mvi.learn.travel.action.TravelTabViewAction
 import com.fmt.mvi.learn.travel.model.Params
 import com.fmt.mvi.learn.travel.state.TravelTabViewState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TravelTabViewModel : ViewModel() {
+@HiltViewModel
+class TravelTabViewModel @Inject constructor(private val mApiService: Api) : ViewModel() {
 
     /**
      *  MutableStateFlow  侧重状态 (State),状态可以是的 UI 组件的可见性，它始终具有一个值（显示/隐藏）
@@ -43,7 +46,7 @@ class TravelTabViewModel : ViewModel() {
     private fun getTravelCategoryList(url: String, params: Params) {
         viewModelScope.launch {
             kotlin.runCatching {
-                ApiService.getTravelCategoryList(url, params)
+                mApiService.getTravelCategoryList(url, params)
             }.onSuccess {
                 _state.emit(
                     if (params.pagePara.pageIndex == 0) TravelTabViewState.RefreshSuccess(it.resultList)

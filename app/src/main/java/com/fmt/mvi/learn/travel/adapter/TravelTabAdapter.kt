@@ -3,7 +3,6 @@ package com.fmt.mvi.learn.travel.adapter
 import android.content.Context
 import android.widget.ImageView
 import cn.jzvd.JZUtils
-import com.ashokvarma.bottomnavigation.utils.Utils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder

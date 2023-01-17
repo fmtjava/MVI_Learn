@@ -35,7 +35,7 @@ class TravelDetailActivity : AppCompatActivity() {
     }
 
     private fun initWindow() {
-        WindowCompat.getInsetsController(window, findViewById(android.R.id.content))?.apply {
+        WindowCompat.getInsetsController(window, findViewById(android.R.id.content)).apply {
             isAppearanceLightStatusBars = true
         }
     }

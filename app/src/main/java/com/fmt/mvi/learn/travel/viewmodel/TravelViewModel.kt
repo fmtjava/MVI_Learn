@@ -2,15 +2,18 @@ package com.fmt.mvi.learn.travel.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fmt.mvi.learn.net.ApiService
+import com.fmt.mvi.learn.net.Api
 import com.fmt.mvi.learn.travel.state.TravelViewState
 import com.fmt.mvi.learn.travel.action.TravelViewAction
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TravelViewModel : ViewModel() {
+@HiltViewModel
+class TravelViewModel @Inject constructor(private val mApiService: Api) : ViewModel() {
 
     private val _state = MutableStateFlow<TravelViewState>(TravelViewState.LoadingState)
     val state: StateFlow<TravelViewState>
@@ -37,7 +40,7 @@ class TravelViewModel : ViewModel() {
     private fun getTravelTabs() {
         viewModelScope.launch {
             kotlin.runCatching {
-                ApiService.getTravelTab()
+                mApiService.getTravelTab()
             }.onSuccess {
                 _state.value = TravelViewState.LoadSuccess(it)
             }.onFailure {

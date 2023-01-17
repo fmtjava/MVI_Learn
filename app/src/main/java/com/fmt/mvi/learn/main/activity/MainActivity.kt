@@ -18,7 +18,9 @@ import com.fmt.mvi.learn.main.action.MainViewAction
 import com.fmt.mvi.learn.main.factory.MainFragmentFactory
 import com.fmt.mvi.learn.main.state.MainViewState
 import com.fmt.mvi.learn.main.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     companion object {

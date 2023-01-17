@@ -19,17 +19,19 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.zy.multistatepage.state.ErrorState
 import com.zy.multistatepage.state.LoadingState
 import com.zy.multistatepage.state.SuccessState
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.distinctUntilChanged
 
+@AndroidEntryPoint
 class TravelFragment : BaseFragment() {
 
     private lateinit var mBinding: FragmentTravelBinding
-    private val mViewModel by viewModels<TravelViewModel>()
+    private val mViewModel: TravelViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         mBinding = FragmentTravelBinding.inflate(layoutInflater)
         return mBinding.root
